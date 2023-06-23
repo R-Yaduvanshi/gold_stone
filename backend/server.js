@@ -27,7 +27,7 @@ app.get("/fetch_user", async (req, res) => {
     // console.log(response.data.data);
     await Users.insertMany(users);
 
-    res.json("Fetching user success");
+    res.json(users);
   } catch (error) {
     console.error(
       "Error in fetching the data and storing the user data:",
