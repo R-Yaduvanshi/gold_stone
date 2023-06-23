@@ -29,7 +29,10 @@ app.get("/fetch_user", async (req, res) => {
 
     res.json("Fetching user success");
   } catch (error) {
-    console.error("Error in fetching and storing the user data:", error);
+    console.error(
+      "Error in fetching the data and storing the user data:",
+      error
+    );
     res.status(500).json({
       error: "Something went wrong",
     });
