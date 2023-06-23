@@ -11,6 +11,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 7000;
 app.use(cors());
 
+// fetching user
 app.get("/fetch_user", async (req, res) => {
   try {
     // Fetching user data from the API
@@ -32,6 +33,37 @@ app.get("/fetch_user", async (req, res) => {
     res.status(500).json({
       error: "Something went wrong",
     });
+  }
+});
+
+// updating user
+
+app.put("/update_user/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatedData = req.body;
+
+    // Update user data in the database
+    await Users.findByIdAndUpdate(userId, updatedData);
+
+    res.json({ message: "User data updated successfully." });
+  } catch (error) {
+    console.error("Error updating user data:", error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating user data." });
+  }
+});
+
+//<========================================> Get All User <======================================>
+
+app.get("/get_users", async (req, res) => {
+  try {
+    const allUser = await Users.find();
+    res.status(200).send(allUser);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ message: "Something went wrong" });
   }
 });
 
